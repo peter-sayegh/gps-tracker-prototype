@@ -2,7 +2,7 @@
 
 My first hands-on hardware project (December 2024 – January 2025): an embedded GPS positioning prototype, originally conceived as a smart dog collar. A microcontroller reads satellite position data from a GPS receiver IC over a serial link, parses it, and prints the result to a computer.
 
-![Feather M0 and GPS FeatherWing on a breadboard, powered over USB with a LiPo attached](images/gps_setup_usb_battery.jpg)
+![Feather M0 and GPS FeatherWing on a breadboard, powered over USB with a LiPo attached](images/gps_setup_usb_battery.jpg?v=2)
 
 ## What it does
 
@@ -21,7 +21,7 @@ Wireless transmission to a phone (the "collar" part) was not built and is listed
 | 3.7 V, 3000 mAh LiPo cell | Portable power (USB also works and is used for programming) |
 | Breadboard | Mechanical mount |
 
-![Boards stacked on a breadboard with LiPo](images/gps_setup_battery.jpg)
+![Boards stacked on a breadboard with LiPo](images/gps_setup_battery.jpg?v=2)
 
 ## How it works
 
