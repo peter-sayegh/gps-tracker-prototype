@@ -2,7 +2,7 @@
 
 My first hands-on hardware project (December 2024 – January 2025): an embedded GPS positioning prototype, originally conceived as a smart dog collar. A microcontroller reads satellite position data from a GPS receiver IC over a serial link, parses it, and prints the result to a computer.
 
-![Serial Monitor showing a GPS fix](images/gps_serial_fix.jpg)
+![Feather M0 and GPS FeatherWing on a breadboard, powered over USB with a LiPo attached](images/gps_setup_usb_battery.jpg)
 
 ## What it does
 
@@ -22,7 +22,6 @@ Wireless transmission to a phone (the "collar" part) was not built and is listed
 | Breadboard | Mechanical mount |
 
 ![Boards stacked on a breadboard with LiPo](images/gps_setup_battery.jpg)
-![Powered over USB with LiPo attached](images/gps_setup_usb_battery.jpg)
 
 ## How it works
 
@@ -33,7 +32,7 @@ Wireless transmission to a phone (the "collar" part) was not built and is listed
 
 ## Result
 
-First outdoor test, at École Polytechnique, Palaiseau (France). This is the Serial Monitor from my first version of the sketch, which printed the library's raw values:
+First outdoor test, at École Polytechnique, Palaiseau (France). This is the Serial Monitor output from my first version of the sketch, which printed the library's raw values:
 
 ```
 GPS Fix Data:
@@ -48,7 +47,7 @@ The library reports coordinates in the receiver's native `DDMM.mmmm` format, so 
 - Latitude `4842.7437` N = 48° 42.7437′ = **48.7124° N**
 - Longitude `213.0130` E = 2° 13.0130′ = **2.2169° E**
 
-That is the Palaiseau area, as expected. I then added this conversion to the sketch (`gps_tracker/gps_tracker.ino`), so the current version prints decimal degrees directly and a Google Maps link. The screenshot above is from the earlier version.
+That is the Palaiseau area, as expected. I then added this conversion to the sketch (`gps_tracker/gps_tracker.ino`), so the current version prints decimal degrees directly and a Google Maps link.
 
 ## Build and run
 
