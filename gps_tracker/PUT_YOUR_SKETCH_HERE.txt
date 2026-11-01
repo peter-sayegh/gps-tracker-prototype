@@ -1,1 +1,0 @@
-Put your own sketch here as gps_tracker.ino (not the Adafruit library files).

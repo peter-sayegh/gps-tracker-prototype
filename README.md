@@ -6,9 +6,9 @@ My first hands-on hardware project (December 2024 – January 2025): an embedded
 
 ## What it does
 
-- Reads NMEA sentences from the GPS receiver over UART
-- Parses them with the Adafruit GPS library
-- Prints latitude, longitude, altitude and satellite count to the Arduino Serial Monitor, at most once every 10 s and only once a valid fix is held
+- Configures the receiver (RMC + GGA sentences only, 1 Hz updates, antenna status) over UART
+- Reads and parses NMEA sentences with the Adafruit GPS library
+- Once a valid fix is held, prints latitude and longitude in decimal degrees, altitude and satellite count to the Arduino Serial Monitor at most once every 10 s, plus an *Open in Google Maps* link
 
 Wireless transmission to a phone (the "collar" part) was not built and is listed under Future work.
 
@@ -29,11 +29,11 @@ Wireless transmission to a phone (the "collar" part) was not built and is listed
 1. The GPS receiver listens to satellite signals and computes position, time and speed.
 2. It streams the results as text lines called NMEA sentences (for example `$GPGGA`, `$GPRMC`) over UART.
 3. The microcontroller reads one character at a time with `GPS.read()`. When `GPS.newNMEAreceived()` is true, `GPS.parse(GPS.lastNMEA())` validates the checksum and fills in the library's fields.
-4. When `GPS.fix` is true, the sketch prints the fields to the Serial Monitor.
+4. When `GPS.fix` is true, the sketch converts the receiver's `DDMM.mmmm` latitude and longitude to decimal degrees and prints them to the Serial Monitor.
 
 ## Result
 
-First outdoor test, at École Polytechnique, Palaiseau (France):
+First outdoor test, at École Polytechnique, Palaiseau (France). This is the Serial Monitor from my first version of the sketch, which printed the library's raw values:
 
 ```
 GPS Fix Data:
@@ -43,12 +43,12 @@ GPS Fix Data:
   Satellites: 3
 ```
 
-The library reports coordinates in the receiver's native `DDMM.mmmm` format, so the degree symbol in my printout is slightly misleading. Converting:
+The library reports coordinates in the receiver's native `DDMM.mmmm` format, so the degree symbol in that early printout was misleading. Converting:
 
 - Latitude `4842.7437` N = 48° 42.7437′ = **48.7124° N**
 - Longitude `213.0130` E = 2° 13.0130′ = **2.2169° E**
 
-That is the Palaiseau area, as expected. (The library also exposes `latitudeDegrees` and `longitudeDegrees`, which return signed decimal degrees directly and would be a cleaner thing to print.)
+That is the Palaiseau area, as expected. I then added this conversion to the sketch (`gps_tracker/gps_tracker.ino`), so the current version prints decimal degrees directly and a Google Maps link. The screenshot above is from the earlier version.
 
 ## Build and run
 
@@ -67,7 +67,7 @@ That is the Palaiseau area, as expected. (The library also exposes `latitudeDegr
 ## Future work
 
 - Send position to a phone over a wireless link (for example BLE or LoRa)
-- Print signed decimal degrees and add a satellite and HDOP quality check before trusting a fix
+- Add a satellite-count and HDOP quality check before trusting a fix (the first fix used only 3 satellites)
 - Log tracks to the module's onboard flash or to an SD card
 - Fit the electronics into a small enclosure on an actual collar
 
